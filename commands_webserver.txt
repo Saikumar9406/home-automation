@@ -1,0 +1,71 @@
+sudo apt-get install apache2 php5
+
+sudo apt-get install lighttpd php5
+
+sudo apt-get install git-core
+
+git clone git://git.drogon.net/wiringPi
+
+cd wiringPi
+
+./build
+
+
+
+
+-------------------------now open terminal and enter this:-------------------
+
+
+$cd /var/www
+$sudo nano rahul.php
+
+
+-------------------------this will open a empty black screen window where we have to write these instructions------------
+********************************************************************************************************
+<html>
+<head>
+<meta name="viewport" content="width=device-width" />
+<title>LED Control</title>
+</head>
+        <body>
+        WEB PAGE ON PHP BASED GPIO Control:
+        <form method="get" action="gpio.php">
+                <input type="submit" value="ON" name="on">
+                <input type="submit" value="OFF" name="off">
+        </form>
+        <?php
+        $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 17 out");
+        if(isset($_GET['on'])){
+                $gpio_on = shell_exec("/usr/local/bin/gpio -g write 17 1");
+                echo "LED is on";
+        }
+        else if(isset($_GET['off'])){
+                $gpio_off = shell_exec("/usr/local/bin/gpio -g write 17 0");
+                echo "LED is off";
+        }
+        ?>
+        </body>
+</html>
+
+
+-*-*-*-*-*-*-*-**-*-*-**-*---*-*-*-*-*-*-*-*-*-*
+
+--------or can try this also------------
+<?php
+$myfile = fopen("/home/pi/log.txt", "r") or die("Unable to open file!");
+echo fread($myfile,filesize("/home/pi/log.txt"));
+fclose($myfile);
+?>
+
+******************************************************************************************************************************
+-------------------------------------------------------------------------------------------------------------
+-------now press "cnt+O" to save and then "cnt+X" to exit
+
+--------once go to /var/www library there we can find rahul.php open it and cross check it---------
+
+--------now check ip address of our pi by giving ifconfig in terminal window------------
+
+--------enter that ip in your mobile brouser as 192.168.2.26/rahul.php------
+--------bingo here it is-----------------------
+
+
